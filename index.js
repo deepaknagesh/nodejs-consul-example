@@ -14,7 +14,7 @@ app.get('/health', (req, res) => {
     res.json({ status: "UP" });
 })
 
-app.get('/hello', (req, res) => {
+app.get('/ns/a', (req, res) => {
     return res.send(`Hello World from ${listener.address().port}!`);
 })
 // console.log(`Example app listening on port ${port[i]}!`);
@@ -23,6 +23,7 @@ listener = app.listen(listenPort, () => console.log(`Example app listening on po
 
 const consulOptions = {
     name: serviceName, id: serviceId, port: listenPort, address: address,
+    tags: ["secure=false"],
     check: {
         http: `http://${address}:${listenPort}/health`,
         interval: '60s',
